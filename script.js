@@ -18,11 +18,11 @@ function instrumentCards(instrumentCategory) {
     instrumentCategory === "all"
       ? instrumentsArr
       : instrumentsArr.filter(
-          ({ category }) => category === instrumentCategory
+          ({ category }) => category === instrumentCategory // Ici, ({ category }) signifie : « Je veux extraire directement la propriété category de chaque objet du tableau ». (DESTRUCTURATION)
         );
 
   return instruments
-    .map(({ instrument, price }) => {
+    .map(({ instrument, price }) => { // Encore une fois, on utilise la déstructuration pour accéder directement aux propriétés instrument et price de chaque objet.
       return `
           <div class="card">
             <h2>${instrument}</h2>
