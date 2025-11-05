@@ -1,1 +1,1 @@
-<strong>JavaScript DOM Manipulation and Events</strong> - freecodecamp-exercices-JS-0060-Build-a-Music-Instrument-Filter - 
+<strong>JavaScript DOM Manipulation and Events</strong> - freecodecamp-exercices-JS-0060-Build-a-Music-Instrument-Filter - https://baouzjulien82.github.io/freecodecamp-exercices-JS-0060-Build-a-Music-Instrument-Filter/
