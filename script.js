@@ -1,160 +1,36 @@
-// Objet principal: équipe de la coupe du monde 1998
-let footballTeam = {
-  team: "France",
-  year: 1998,
-  headCoach: "Aimé Jacquet",
-  players: [
-    {
-      name: "Didier Deschamps",
-      position: "midfielder",
-      isCaptain: true
-    },
-    {
-      name: "Zinedine Zidane",
-      position: "midfielder",
-      isCaptain: false
-    },
-    {
-      name: "Fabien Barthez",
-      position: "goalkeeper",
-      isCaptain: false
-    },
-    {
-      name: "Laurent Blanc",
-      position: "defender",
-      isCaptain: false
-    },
-    {
-      name: "Marcel Desailly",
-      position: "defender",
-      isCaptain: false
-    },
-    {
-      name: "Lilian Thuram",
-      position: "defender",
-      isCaptain: false
-    },
-    {
-      name: "Bixente Lizarazu",
-      position: "defender",
-      isCaptain: false
-    },
-    {
-      name: "Emmanuel Petit",
-      position: "midfielder",
-      isCaptain: false
-    },
-    {
-      name: "Youri Djorkaeff",
-      position: "midfielder",
-      isCaptain: false
-    },
-    {
-      name: "Stéphane Guivarc’h",
-      position: "forward",
-      isCaptain: false
-    },
-    {
-      name: "Thierry Henry",
-      position: "forward",
-      isCaptain: false
-    }
-  ]
-};
+const instrumentsArr = [
+  { category: "woodwinds", instrument: "Flute", price: 500 },
+  { category: "woodwinds", instrument: "Clarinet", price: 200 },
+  { category: "woodwinds", instrument: "Oboe", price: 4000 },
+  { category: "brass", instrument: "Trumpet", price: 200 },
+  { category: "brass", instrument: "Trombone", price: 300 },
+  { category: "brass", instrument: "French Horn", price: 4300 },
+  { category: "percussion", instrument: "Drum Set", price: 500 },
+  { category: "percussion", instrument: "Xylophone", price: 3000 },
+  { category: "percussion", instrument: "Cymbals", price: 200 },
+  { category: "percussion", instrument: "Marimba", price: 3000 }
+]
 
-// Définition des variables Team stats
-let teamName = document.getElementById('team');
-let teamYear = document.getElementById('year');
-let headCoach = document.getElementById('head-coach');
+const selectContainer = document.querySelector("select");
+const productsContainer = document.querySelector(".products-container");
+function instrumentCards(instrumentCategory) {
+  const instruments =
+    instrumentCategory === "all"
+      ? instrumentsArr
+      : instrumentsArr.filter(
+          ({ category }) => category === instrumentCategory // Ici, ({ category }) signifie : « Je veux extraire directement la propriété category de chaque objet du tableau ». (DESTRUCTURATION)
+        );
 
-// Définition de la variable Filter
-let playersFilter = document.getElementById('players');
-
-// Définition des variables player-cards
-let playerCards = document.getElementById('player-cards');
-
-// Remplissage des span Team Year et Head coach
-teamName.textContent = footballTeam.team;
-teamYear.textContent = footballTeam.year;
-headCoach.textContent = footballTeam.headCoach;
-
-// Définition du tableau des joueurs
-const teamArray = footballTeam.players;
-
-// Fonction de tri des joueur
-const playerCardsFct = (playerPosition) => {
-  const playersToDisplay = 
-  playerPosition === "all"
-  ? teamArray
-  : teamArray.filter(({position}) => position === playerPosition);
-return playersToDisplay.map(({name, position, isCaptain}) => {
-  return `<div class="player-card">
-  <h2>${name}</h2>
-  <p>${position}</p>
-  ${isCaptain ? "<p>(Captitaine)</p>" : ""}
-</div>`;
-}).join("");
-};
-
-// Mise en place de l'EventListener sur le select
-playersFilter.addEventListener("change", () => {
-  playerCards.innerHTML = playerCardsFct(playersFilter.value);
-});
-
-// Remplissage des cards au complet avant toute selection
-playerCards.innerHTML = playerCardsFct("all");
-
-// Version corrigée : 
-/* 
-// Objet principal
-const footballTeam = {
-  team: "France",
-  year: 1998,
-  headCoach: "Aimé Jacquet",
-  players: [
-    { name: "Didier Deschamps", position: "midfielder", isCaptain: true },
-    { name: "Zinedine Zidane", position: "midfielder", isCaptain: false },
-    { name: "Fabien Barthez", position: "goalkeeper", isCaptain: false },
-    { name: "Laurent Blanc", position: "defender", isCaptain: false },
-    { name: "Thierry Henry", position: "forward", isCaptain: false }
-  ]
-};
-
-// Affichage des infos générales
-document.getElementById("team").textContent = footballTeam.team;
-document.getElementById("year").textContent = footballTeam.year;
-document.getElementById("head-coach").textContent = footballTeam.headCoach;
-
-// Fonction d'affichage des cartes
-function displayPlayers(position) {
-  const container = document.getElementById("player-cards");
-  container.innerHTML = "";
-
-  const filteredPlayers =
-    position === "all"
-      ? footballTeam.players
-      : footballTeam.players.filter(p => p.position === position);
-
-  filteredPlayers.forEach(player => {
-    const card = document.createElement("div");
-    card.className = "player-card";
-
-    const name = document.createElement("h2");
-    name.textContent = player.isCaptain ? `(Captain) ${player.name}` : player.name;
-
-    const pos = document.createElement("p");
-    pos.textContent = `Position: ${player.position}`;
-
-    card.appendChild(name);
-    card.appendChild(pos);
-    container.appendChild(card);
-  });
+  return instruments
+    .map(({ instrument, price }) => { // Encore une fois, on utilise la déstructuration pour accéder directement aux propriétés instrument et price de chaque objet.
+      return `
+          <div class="card">
+            <h2>${instrument}</h2>
+            <p>$${price}</p>
+          </div>
+        `;
+    }).join((""))
 }
-
-// Initialisation
-document.getElementById("players").addEventListener("change", e => {
-  displayPlayers(e.target.value);
+selectContainer.addEventListener("change", () => {
+  productsContainer.innerHTML = instrumentCards(selectContainer.value);
 });
-
-displayPlayers("all");
-*/
