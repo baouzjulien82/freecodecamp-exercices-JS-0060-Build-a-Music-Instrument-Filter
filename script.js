@@ -89,13 +89,18 @@ const playerCardsFct = (playerPosition) => {
   : teamArray.filter(({position}) => position === playerPosition);
 return playersToDisplay.map(({name, position, isCaptain}) => {
   return `<div class="player-card">
-  <h2>${isCaptain ? "(Capitaine) " : ""}${name}</h2>
+  <h2>${name}</h2>
   <p>${position}</p>
+  ${isCaptain ? "<p>(Captitaine)</p>" : ""}
 </div>`;
-}).join("")
+}).join("");
 };
 
 // Mise en place de l'EventListener sur le select
 playersFilter.addEventListener("change", () => {
   playerCards.innerHTML = playerCardsFct(playersFilter.value);
 });
+
+// Remplissage des cards au complet avant toute selection
+playerCards.innerHTML = playerCardsFct("all");
+
